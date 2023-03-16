@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="section">
+        <div class="row">
+            <ul class="collection">
+                <li class="collection-item avatar">
+                    <i class="material-icons circle">folder</i>
+                  <span class="title">Get All Employees</span>
+                  <p>/api/v1/employees</p>
+                  <a href="/api/v1/employees">Test ici</a>
+                </li>
+
+
+                <li class="collection-item avatar">
+                    <i class="material-icons circle">folder</i>
+                  <span class="title">Get One Employees by id</span>
+                  <p>/api/v1/employees/:id</p>
+                  <input id="getoneid" type="number">
+                  <a id="linkgetone" href="/api/v1/employees/"></a>
+                </li>
+              </ul>
+        </div>
+    </div>
+</div>
+<script>
+    let params = document.querySelector("#getoneid")
+    
+
+    params.addEventListener("change", (e) => {
+        e.preventDefault()
+        e.stopImmediatePropagation()
+
+        let id = params.value
+        let link = document.querySelector("#linkgetone")
+        link.pathname += id
+        link.innerText += "Test ici : /api/v1/employees/"+id
+    })
+
+   
+</script>

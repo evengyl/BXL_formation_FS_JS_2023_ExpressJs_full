@@ -6,8 +6,18 @@ const port = process.env.PORT || 3000
 app.use(express.json()) //permet de traiter le body du corp écris et converti en json utilisable
 
 
+//aplication du nouveau moteur de tpl, avant html..
+//npm install ejs
+app.set('view engine', "ejs")
+app.set("views", "./views")
+//activation de la lecture des fichiers static, (css, srcript.js, image, son,...)
+app.use(express.static("./public"))
+
+
 const routerBase = require("./routers/base.router")
+const routerBaseDoc = require("./routers/base.doc.router")
 app.use("/api/v1", routerBase)
+app.use("/doc", routerBaseDoc) //route spécifique a ma doc...
 
 
 app.all("*", (req, res, next) => {
