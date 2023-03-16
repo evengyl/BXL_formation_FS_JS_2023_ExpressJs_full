@@ -1,0 +1,44 @@
+NPM INIT -> V0.0.0
+
+-> add employees CRUD
+Test
+Test -> OK
+V0.1.0
+
+-> add comptas + clients CRUD
+Test
+-> Error On comptas
+--> apply debug on comptas + clients and employees if needed
+V0.1.1
+Test -> OK
+
+Test all route clients
+-> Error On Clients and employees
+--> apply debug on Clients + employees
+V0.1.2
+Test -> OK
+
+Run All Route for Test
+Test -> All features OK
+V0.2.0
+
+all is ok for production 
+V1.0.0
+
+
+Next features -> add events CRUD
+blablabla
+test blabal
+V1.0.1
+V1.0.2
+V1.0.3
+Test ok 
+
+all is ok for production
+V1.1.0 OR if major features -> V2.0.0
+
+explain V1.5.3
+V = Version...
+1 = Major Patch Version
+5 = Minor update or features light 
+3 = for this Major and This Minor patch -> FIX bug
