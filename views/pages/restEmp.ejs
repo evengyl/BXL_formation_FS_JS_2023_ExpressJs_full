@@ -9,7 +9,6 @@
                   <a href="/api/v1/employees">Test ici</a>
                 </li>
 
-
                 <li class="collection-item avatar">
                     <i class="material-icons circle">folder</i>
                   <span class="title">Get One Employees by id</span>
@@ -17,19 +16,90 @@
                   <input id="getoneid" type="number">
                   <a id="linkgetone" href="/api/v1/employees/"></a>
                 </li>
+
+                <li class="collection-item avatar col s6" style="padding-top:10px; padding-bottom:10px;">
+                    <i class="material-icons circle">folder</i>
+                    <span class="title">Post one Employees</span>
+                    <p>/api/v1/employees</p>
+                  
+                    <div class="input-field col s6">
+                        <label for="postone_matricul">Matricul</label>
+                        <input value="195-74-9473" id="postone_matricul" type="text">
+                    </div>
+
+                    <div class="input-field col s6">
+                        <label for="postone_name">Name</label>
+                        <input value="baudoux loic" id="postone_name" type="text">
+                    </div>
+
+                    <div class="input-field col s6">
+                        <label for="postone_jobTitle">JobTitle</label>
+                        <input value="lead javascript developper" id="postone_jobTitle" type="text">
+                    </div>
+
+                    <div class="input-field col s6">
+                        <label for="postone_salary">Salary</label>
+                        <input value="€9999" id="postone_salary" type="text">
+                    </div>
+
+                    <br>
+                    <button class="btn" id="validatePostOne">Validate</button>
+                    <a id="linkpostone" href="/api/v1/employees/"></a>
+                </li>
+                <li class="col s6" id="resPostOne"></li>
+
               </ul>
         </div>
     </div>
 </div>
-<script>
-    let params = document.querySelector("#getoneid")
-    
 
-    params.addEventListener("change", (e) => {
+<script>
+    let paramsGetOne = document.querySelector("#getoneid")
+    
+    document.querySelector("#validatePostOne").addEventListener("click", (e) => {
         e.preventDefault()
         e.stopImmediatePropagation()
 
-        let id = params.value
+        let postone_matricul = document.querySelector("#postone_matricul").value
+        let postone_name = document.querySelector("#postone_name").value
+        let postone_jobTitle = document.querySelector("#postone_jobTitle").value
+        let postone_salary = document.querySelector("#postone_salary").value
+
+        let newEmp = { 
+            matricul : postone_matricul,
+            name : postone_name,
+            jobTitle : postone_jobTitle,
+            salary : postone_salary
+        }
+
+        fetch("/api/v1/employees/", {
+            method: "POST", 
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            redirect: "follow",
+            referrerPolicy: "no-referrer",
+            body: JSON.stringify(newEmp),
+        }).then((resp) => {
+            resp.json().then((resApi) => {
+                document.querySelector("#resPostOne").innerHTML = JSON.stringify(resApi)
+            })
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+
+    })
+
+
+    paramsGetOne.addEventListener("change", (e) => {
+        e.preventDefault()
+        e.stopImmediatePropagation()
+
+        let id = paramsGetOne.value
         let link = document.querySelector("#linkgetone")
         link.pathname += id
         link.innerText += "Test ici : /api/v1/employees/"+id
