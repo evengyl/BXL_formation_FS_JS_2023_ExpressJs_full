@@ -1,8 +1,7 @@
-const employees = require("../datas/employees.json")
 const {setDbConnection} = require("./db")
 const mssql = require("mssql")
 
-const employeesModels = {
+const employeesModelsSql = {
 
     getAll_sql : async () => {
         const db = await setDbConnection()
@@ -11,14 +10,6 @@ const employeesModels = {
         return result.recordset
     },
     
-    getAll : () => {
-        return [...employees]
-    },
-
-    getOne : (id) => {
-        return employees.find(emp => emp.id == id)
-    },
-
     getOne_sql : async (id) => {
         let db
         try {
@@ -41,16 +32,6 @@ const employeesModels = {
         finally {
             db?.close()
         }
-    },
-
-    create : (newEmp) => {
-
-        let uuid = employees.length+1
-        newEmp.id = uuid
-        employees.push(newEmp)
-        //simulation du save db (push) -> on ne retourne pas le newEmp !!! on retourne le newEmp venant de la db !!!
-        let empCreated = employees.find(emp => emp.id == uuid)
-        return empCreated
     },
 
     create_sql : async (newEmp) => {
@@ -78,13 +59,6 @@ const employeesModels = {
         finally {
             db?.close()
         }
-    },
-
-    update : (empToUpdate) => {
-        let indexEmp = employees.findIndex(emp => emp.id == empToUpdate.id)
-        
-        employees[indexEmp] = empToUpdate
-        return employees[indexEmp]
     },
 
 
@@ -116,12 +90,6 @@ const employeesModels = {
         }
     },
 
-    delete : (empToFired) => {
-        let indexEmp = employees.findIndex(emp => emp.id == empToFired.id)
-        
-        employees[indexEmp] = empToFired
-        return employees[indexEmp]
-    },
 
     delete_sql : async (empToFired) => {
         let db
@@ -150,4 +118,4 @@ const employeesModels = {
 }
 
 
-module.exports = employeesModels
+module.exports = employeesModelsSql

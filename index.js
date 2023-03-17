@@ -2,6 +2,8 @@ const express = require("express")
 const app = express()
 const port = process.env.PORT || 3000
 
+let {testDbConnection } = require('./models/db')
+testDbConnection()
 
 app.use(express.json()) //permet de traiter le body du corp écris et converti en json utilisable
 
