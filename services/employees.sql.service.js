@@ -8,9 +8,13 @@ const employeesModelsSql = require("../models/employees.sql.models")
 */
 const employeesServiceSql = {
   
-    getAll_sql : () => {
-        let allEmp = employeesModelsSql.getAll_sql()
-        return allEmp
+    getAll_sql : async () => {
+
+        // return employeesModelsSql.getAll_sql().then((res) => {
+        //     return res
+        // })
+
+        return await employeesModelsSql.getAll_sql()
     },
 
    

@@ -1,10 +1,10 @@
-const {setDbConnection} = require("./db")
+const {getDbConnection} = require("./db")
 const mssql = require("mssql")
 
 const employeesModelsSql = {
 
     getAll_sql : async () => {
-        const db = await setDbConnection()
+        const db = await getDbConnection()
         const result = await db.query("select * from employees")
         db.close()
         return result.recordset
@@ -13,7 +13,7 @@ const employeesModelsSql = {
     getOne_sql : async (id) => {
         let db
         try {
-            db = await setDbConnection()
+            db = await getDbConnection()
 
             // Requete SQL parametré
             const querySQL = 'SELECT * FROM employees WHERE id = @Id'
@@ -38,7 +38,7 @@ const employeesModelsSql = {
 
         let db
         try {
-            db = await setDbConnection()
+            db = await getDbConnection()
             //id, name, matricul, jobTitle, salary, fired
             // Protection contre l'injection SQL => Pas de concatenation !
             const querySQL = 'INSERT INTO employees (name, matricul, jobTitle, salary, fired)'
@@ -65,7 +65,7 @@ const employeesModelsSql = {
     update_sql : async (empToUpdate) => {
         let db
         try {
-            db = await setDbConnection()
+            db = await getDbConnection()
             //id, name, matricul, jobTitle, salary, fired
             // Protection contre l'injection SQL => Pas de concatenation !
             const querySQL = 'UPDATE employees '
@@ -94,7 +94,7 @@ const employeesModelsSql = {
     delete_sql : async (empToFired) => {
         let db
         try {
-            db = await setDbConnection()
+            db = await getDbConnection()
             //id, name, matricul, jobTitle, salary, fired
             // Protection contre l'injection SQL => Pas de concatenation !
             const querySQL = 'UPDATE employees '

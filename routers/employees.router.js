@@ -11,22 +11,17 @@ const employeesController = require("../controllers/employees.controller")
 
 routerEmployees
     .route("/")
-        //.get(employeesController.getAll)
-        .get(employeesController.getAll_sql)
-        //.post(employeesController.create)
-        .post(employeesController.create_sql)
+        .get(employeesController.getAll)
+        .post(employeesController.create)
 
         //n'oubliez pas ! pas de parenthèse sur les fct appelée
         //car en réalité on lui donne un nom de callback à appeler lors du match routage !!!
 
 routerEmployees
     .route("/:id") // -> req.params.id
-        //.get(employeesController.getOne)
-        .get(employeesController.getOne_sql)
-        //.put(employeesController.update)
-        .put(employeesController.update_sql)
-        //.delete(employeesController.delete)
-        .delete(employeesController.delete_sql)
+        .get(employeesController.getOne)
+        .put(employeesController.update)
+        .delete(employeesController.delete)
 
 
 module.exports = routerEmployees

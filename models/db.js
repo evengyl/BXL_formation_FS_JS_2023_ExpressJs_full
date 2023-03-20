@@ -11,14 +11,14 @@ const config = {
 const mssql = require('mssql')
 
 
-const setDbConnection = async () => {
+const getDbConnection = async () => {
     db = await mssql.connect(config)
     return db
 }
 
 const testDbConnection = async () => {
     try {
-        const db = await setDbConnection()
+        const db = await getDbConnection()
         db.close()
         console.log('Connection DB - OK')
     }
@@ -29,6 +29,6 @@ const testDbConnection = async () => {
 }
 
 module.exports = {
-    setDbConnection,
+    getDbConnection,
     testDbConnection
 }
