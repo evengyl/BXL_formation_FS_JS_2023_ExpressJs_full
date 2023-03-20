@@ -10,7 +10,8 @@ const employeesControllerSql = {
     },
 
     getOne_sql : async (req, res, next) => {
-        let id = req.params.id
+
+        let id = req.paramsValidate.id
 
         let oneEmp = await employeesServiceSql.getOne_sql(id)
         
@@ -31,19 +32,11 @@ const employeesControllerSql = {
 
     create_sql : async (req, res, next) => {
 
-        //DTO TO MODELS BUSINESS -> Data Transfert Object
-        if(req.body.name == undefined || req.body.matricul == undefined 
-            || req.body.jobTitle == undefined || req.body.salary == undefined
-        )
-        {
-            throw new Error("Les paramètres du body ne sont pas complet !")
-        }
-
         let newEmp = {
-            name : req.body.name,
-            matricul : req.body.matricul,
-            jobTitle : req.body.jobTitle,
-            salary : req.body.salary
+            name : req.dataValidate.name,
+            matricul : req.dataValidate.matricul,
+            jobTitle : req.dataValidate.jobTitle,
+            salary : req.dataValidate.salary
         }
 
         let newEmpCreated = await employeesServiceSql.create_sql(newEmp)
@@ -52,22 +45,16 @@ const employeesControllerSql = {
     },
 
     update_sql : async (req, res, next) => {
-        let id = req.params.id
+        let id = req.paramsValidate.id
         let empToUpdate = await employeesServiceSql.getOne_sql(id)
 
         if(empToUpdate.id != undefined)
         {
-            if(req.body.name != undefined)
-                empToUpdate.name = req.body.name
+            if(req.dataValidate.jobTitle != undefined)
+                empToUpdate.jobTitle = req.dataValidate.jobTitle
 
-            if(req.body.matricul != undefined)
-                empToUpdate.matricul = req.body.matricul
-
-            if(req.body.jobTitle != undefined)
-                empToUpdate.jobTitle = req.body.jobTitle
-
-            if(req.body.salary != undefined)
-                empToUpdate.salary = req.body.salary
+            if(req.dataValidate.salary != undefined)
+                empToUpdate.salary = req.dataValidate.salary
 
             let empUpdated = await employeesServiceSql.update_sql(empToUpdate)
             res.json(empUpdated)
@@ -85,8 +72,7 @@ const employeesControllerSql = {
 
    
     delete_sql : async (req, res, next) => {
-
-        let id = req.params.id
+        let id = req.paramsValidate.id
         let empToFired = await employeesServiceSql.getOne_sql(id)
         
         if(empToFired.id != undefined)

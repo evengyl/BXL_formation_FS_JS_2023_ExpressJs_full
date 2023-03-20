@@ -50,7 +50,7 @@ const employeesModelsSql = {
             request.input('name', mssql.NVarChar, newEmp.name)
             request.input('matricul', mssql.NVarChar, newEmp.matricul)
             request.input('jobTitle', mssql.NVarChar, newEmp.jobTitle)
-            request.input('salary', mssql.NVarChar, newEmp.salary)
+            request.input('salary', mssql.NVarChar, ("€" + newEmp.salary.toString()))
             request.input('fired', mssql.Bit, newEmp.fired)
 
             const result = await request.query(querySQL)
@@ -69,17 +69,15 @@ const employeesModelsSql = {
             //id, name, matricul, jobTitle, salary, fired
             // Protection contre l'injection SQL => Pas de concatenation !
             const querySQL = 'UPDATE employees '
-                + ' SET name = @name, matricul = @matricul, jobTitle = @jobTitle, salary = @salary '
+                + ' SET jobTitle = @jobTitle, salary = @salary '
                 + ' OUTPUT inserted.id '
                 + ' WHERE id = @id '
                
 
             // Requete sécurisé: Ajout de parametres pour envoyer les données sensible
             const request = new mssql.Request(db)
-            request.input('name', mssql.NVarChar, empToUpdate.name)
-            request.input('matricul', mssql.NVarChar, empToUpdate.matricul)
             request.input('jobTitle', mssql.NVarChar, empToUpdate.jobTitle)
-            request.input('salary', mssql.NVarChar, empToUpdate.salary)
+            request.input('salary', mssql.NVarChar, ("€" + empToUpdate.salary.toString()))
             request.input('id', mssql.Int, empToUpdate.id)
 
             const result = await request.query(querySQL)
