@@ -7,10 +7,11 @@ const {
     GetOneEmployeesValidator,
     UpdateEmployeesValidator
  } = require("../validators/employees.validator")
+ const { authJwt } = require("../middlewares/auth.middleware")
 
 routerEmployeesSql
     .route("/")
-        .get(employeesControllerSql.getAll_sql)
+        .get(authJwt("admin"), employeesControllerSql.getAll_sql)
         .post(test, bodyValidation(CreateEmployeesValidator), employeesControllerSql.create_sql)
 
 routerEmployeesSql
